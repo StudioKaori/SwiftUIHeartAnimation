@@ -8,10 +8,51 @@
 import SwiftUI
 
 struct Home: View {
+  @State var posts = [
+    Post(imageName: "heart.fill"),
+    Post(imageName: "person.fill"),
+    Post(imageName: "xmark.fill"),
+  ]
   var body: some View {
     NavigationView {
-      
+      ScrollView(.vertical, showsIndicators: false) {
+        VStack(alignment: .leading, spacing: 16, content: {
+          ForEach(posts) { post in
+            VStack {
+              GeometryReader { proxy in
+                Image(systemName: post.imageName)
+                  .resizable()
+                  .aspectRatio(contentMode: .fill)
+                  .cornerRadius(1)
+                
+                Button(action: {
+                  posts[getIndex(post: post)].isLiked.toggle()
+                }, label: {
+                  Image(systemName: post.isLiked ? "suit.heart.fill" : "suit.heart")
+                    .font(.title2)
+                    .foregroundColor(post.isLiked ? .red : .gray)
+                })
+              }
+              .frame(height: 280)
+              .overlay(
+                HeartLike(isTapped: $posts[getIndex(post: post)].isLiked, taps: 2)
+              )
+              .cornerRadius(15)
+            }
+          } // end of foreach
+          .padding()
+        })
+      }
+      .navigationTitle("Heart")
     }
+  }
+  
+  func getIndex(post: Post) -> Int {
+    let index = posts.firstIndex { currentPost in
+      return currentPost.id == post.id
+    } ?? 0
+    
+    return index
   }
 }
 
@@ -20,7 +61,7 @@ struct Home: View {
 }
 
 struct HeartLike: View {
-  @State var isTapped: Bool = false
+  @Binding var isTapped: Bool
   @State var startAnimation = false
   @State var bgAnimation = false
   @State var resetBg = false
@@ -30,14 +71,17 @@ struct HeartLike: View {
   // to avoid tap during animation
   @State var tapComplete = false
   
+  var taps: Int = 1
+  
   var body: some View {
     Image(systemName: resetBg ? "suit.heart.fill" : "suit.heart")
       .font(.system(size: 46))
       .foregroundColor(resetBg ? .red : .gray)
       .scaleEffect(startAnimation && !resetBg ? 0 : 1)
+      .opacity(startAnimation && !animationEnded ? 1 : 0)
       .background(
         ZStack {
-          CustomShape(radius: resetBg ? 29 : 0)
+          HeartLikeCustomShape(radius: resetBg ? 29 : 0)
             .fill(Color.purple)
             .clipShape(Circle())
             .frame(width: 50, height: 50)
@@ -71,7 +115,7 @@ struct HeartLike: View {
       )
       .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
       .contentShape(Rectangle())
-      .onTapGesture {
+      .onTapGesture(count: taps) {
         if tapComplete {
           // reset back
           startAnimation = false
@@ -80,6 +124,7 @@ struct HeartLike: View {
           fireworkAnimation = false
           animationEnded = false
           tapComplete = false
+          isTapped = false
           return
         }
         
@@ -122,28 +167,28 @@ struct HeartLike: View {
         }
       }
   }
-}
-
-struct CustomShape: Shape {
-  var radius: CGFloat
   
-  // animation path won't work in preview
-  //  var animatableData: CGFloat {
-  //    get { return radius}
-  //    set { radius = newValue }
-  //  }
-  
-  func path(in rect: CGRect) -> Path {
-    return Path { path in
-      path.move(to: CGPoint(x: 0, y: 0))
-      path.addLine(to: CGPoint(x: 0, y: rect.height))
-      path.addLine(to: CGPoint(x: rect.width, y: rect.height))
-      path.addLine(to: CGPoint(x: rect.width, y: 0))
-      
-      // add center circle
-      let center = CGPoint(x: rect.width / 2, y: rect.height / 2)
-      path.move(to: center)
-      path.addArc(center: center, radius: radius, startAngle: .zero, endAngle: .init(degrees: 360), clockwise: false)
+  struct HeartLikeCustomShape: Shape {
+    var radius: CGFloat
+    
+    // animation path won't work in preview
+    //  var animatableData: CGFloat {
+    //    get { return radius}
+    //    set { radius = newValue }
+    //  }
+    
+    func path(in rect: CGRect) -> Path {
+      return Path { path in
+        path.move(to: CGPoint(x: 0, y: 0))
+        path.addLine(to: CGPoint(x: 0, y: rect.height))
+        path.addLine(to: CGPoint(x: rect.width, y: rect.height))
+        path.addLine(to: CGPoint(x: rect.width, y: 0))
+        
+        // add center circle
+        let center = CGPoint(x: rect.width / 2, y: rect.height / 2)
+        path.move(to: center)
+        path.addArc(center: center, radius: radius, startAngle: .zero, endAngle: .init(degrees: 360), clockwise: false)
+      }
     }
   }
 }
