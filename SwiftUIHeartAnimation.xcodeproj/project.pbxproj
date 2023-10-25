@@ -11,6 +11,8 @@
 		43B5C1C22AE942C100982723 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C1C12AE942C100982723 /* ContentView.swift */; };
 		43B5C1C42AE942C300982723 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43B5C1C32AE942C300982723 /* Assets.xcassets */; };
 		43B5C1C72AE942C300982723 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43B5C1C62AE942C300982723 /* Preview Assets.xcassets */; };
+		43B5C1CE2AE9434E00982723 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C1CD2AE9434E00982723 /* Post.swift */; };
+		43B5C1D02AE9439D00982723 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C1CF2AE9439D00982723 /* Home.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		43B5C1C12AE942C100982723 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		43B5C1C32AE942C300982723 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43B5C1C62AE942C300982723 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		43B5C1CD2AE9434E00982723 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		43B5C1CF2AE9439D00982723 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,8 @@
 			children = (
 				43B5C1BF2AE942C100982723 /* SwiftUIHeartAnimationApp.swift */,
 				43B5C1C12AE942C100982723 /* ContentView.swift */,
+				43B5C1CD2AE9434E00982723 /* Post.swift */,
+				43B5C1CF2AE9439D00982723 /* Home.swift */,
 				43B5C1C32AE942C300982723 /* Assets.xcassets */,
 				43B5C1C52AE942C300982723 /* Preview Content */,
 			);
@@ -137,7 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43B5C1CE2AE9434E00982723 /* Post.swift in Sources */,
 				43B5C1C22AE942C100982723 /* ContentView.swift in Sources */,
+				43B5C1D02AE9439D00982723 /* Home.swift in Sources */,
 				43B5C1C02AE942C100982723 /* SwiftUIHeartAnimationApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
